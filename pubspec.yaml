@@ -61,10 +61,10 @@ flutter:
   fonts:
     - family: Montserrat
       fonts:
-        - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat-Bold.ttf
           weight: 700
-        - asset: fonts/Montserrat-Italic.ttf
+        - asset: assets/fonts/Montserrat-Italic.ttf
           style: italic
   # To add assets to your application, add an assets section, like this:
   # assets:

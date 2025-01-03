@@ -206,7 +206,7 @@ class LandingPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       child: const Text(
-        '© 2025 CommunityApp. All Rights Reserved.',
+        '© 2025 Jirani Developers. All Rights Reserved.',
         textAlign: TextAlign.center,
         style: TextStyle(color: Colors.white70),
       ),

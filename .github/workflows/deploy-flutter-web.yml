@@ -1,0 +1,44 @@
+name: Build and Deploy Flutter Web App
+
+on:
+  push:
+    branches:
+      - main  # Replace with your desired branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Install Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "stable"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Build the Flutter web app
+      - name: Build Flutter web app
+        run: flutter build web
+
+      # Deploy to the server
+      - name: Deploy to server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          TARGET_DIR: ${{ secrets.TARGET_DIR }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+
+          rsync -avz --delete ./build/web/ $SERVER_USER@$SERVER_IP:$TARGET_DIR
